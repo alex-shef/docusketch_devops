@@ -1,0 +1,26 @@
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - docusketch_network
+
+  python_flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    networks:
+      - docusketch_network
+
+networks:
+  docusketch_network:
+
+volumes:
+  mongodb_data:
