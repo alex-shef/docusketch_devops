@@ -9,11 +9,15 @@ services:
       - docusketch_network
 
   python_flask:
+    container_name: python_flask_container
     build:
       context: .
       dockerfile: Dockerfile
+    command: python app.py --host=0.0.0.0
     ports:
       - "8080:8080"
+    volumes:
+      - .:/app
     depends_on:
       - mongodb
     networks:
